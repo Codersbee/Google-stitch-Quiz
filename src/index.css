@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  
+  --color-primary: #0058ba;
+  --color-primary-container: #6c9fff;
+  --color-secondary: #006a2b;
+  --color-secondary-container: #86f898;
+  --color-tertiary: #765600;
+  --color-tertiary-container: #fbbc05;
+  --color-surface: #f7f5ff;
+  --color-on-surface: #232c51;
+  --color-on-surface-variant: #505a81;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans;
+  }
+}
+
+.glass-panel {
+  @apply backdrop-blur-xl bg-white/60 border border-white/20;
+}
+
+.topo-bg {
+  background-image: url("data:image/svg+xml,%3Csvg width='400' height='400' viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 50 50 100 100 T 200 100 T 300 100 T 400 100' fill='none' stroke='%230058ba' stroke-opacity='0.05'/%3E%3Cpath d='M0 200 Q 50 150 100 200 T 200 200 T 300 200 T 400 200' fill='none' stroke='%230058ba' stroke-opacity='0.03'/%3E%3Cpath d='M0 300 Q 50 250 100 300 T 200 300 T 300 300 T 400 300' fill='none' stroke='%230058ba' stroke-opacity='0.05'/%3E%3C/svg%3E");
+}
