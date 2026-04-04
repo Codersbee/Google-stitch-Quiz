@@ -1,13 +1,262 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
 
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#5091ff",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed-variant": "#5f4500",
+              "on-surface": "#232c51",
+              "on-primary": "#f0f2ff",
+              "surface-tint": "#0058ba",
+              "on-primary-fixed": "#000000",
+              "on-tertiary-container": "#543c00",
+              "on-secondary-container": "#005d25",
+              "tertiary-fixed-dim": "#eaaf00",
+              "tertiary-container": "#fbbc05",
+              "inverse-surface": "#020a2f",
+              "on-background": "#232c51",
+              "error-container": "#fb5151",
+              "surface-dim": "#cad2ff",
+              "inverse-on-surface": "#929bc6",
+              "on-surface-variant": "#505a81",
+              "error-dim": "#9f0519",
+              "secondary-fixed": "#86f898",
+              "on-error-container": "#570008",
+              "background": "#f7f5ff",
+              "error": "#b31b25",
+              "secondary-fixed-dim": "#78e98b",
+              "on-error": "#ffefee",
+              "tertiary": "#765600",
+              "on-secondary": "#cfffcf",
+              "surface-container-low": "#efefff",
+              "surface": "#f7f5ff",
+              "on-tertiary-fixed": "#3a2900",
+              "surface-container-highest": "#d5dbff",
+              "primary-container": "#6c9fff",
+              "surface-container": "#e4e7ff",
+              "secondary-dim": "#005d24",
+              "surface-variant": "#d5dbff",
+              "secondary": "#006a2b",
+              "primary-fixed": "#6c9fff",
+              "primary": "#0058ba",
+              "on-secondary-fixed-variant": "#00682a",
+              "surface-container-high": "#dde1ff",
+              "on-primary-container": "#00214e",
+              "outline-variant": "#a2abd7",
+              "primary-dim": "#004da4",
+              "secondary-container": "#86f898",
+              "tertiary-dim": "#674b00",
+              "on-primary-fixed-variant": "#002a60",
+              "inverse-primary": "#4a8eff",
+              "on-tertiary": "#fff1db",
+              "tertiary-fixed": "#fbbc05",
+              "on-secondary-fixed": "#00481b",
+              "surface-bright": "#f7f5ff",
+              "outline": "#6c759e"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 rounded-b-[2.5rem] bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_12px_40px_rgba(35,44,81,0.06)]">
+<div class="flex justify-between items-center px-8 py-5 w-full max-w-7xl mx-auto">
+<div class="text-2xl font-black text-blue-600 dark:text-blue-400 uppercase italic font-headline tracking-tight">
+                GeoExplorer
+            </div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-blue-700 dark:text-blue-300 font-bold border-b-4 border-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Adventure</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Quizzes</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Badges</a>
+<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Profile</a>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-surface-container-high px-4 py-2 rounded-full font-headline font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
+                    1,240 XP
+                </div>
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-white shadow-sm">
+<img alt="Young Explorer Avatar" class="w-full h-full object-cover" data-alt="vibrant 3D avatar of a friendly young explorer wearing a yellow hat and blue explorer vest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByAv0WVbjbj09r1nMv-5tFo2zd0m0Yvvi1CXuszZQh_6WEctZbmkSNID234hVVOq9Jpv1CqPmDkFI4glv7R0SgvCbq94Q0IyBtduF-BUyUf1aeN63ivJjWxCmljaBbuo-FDtc8Xw0AIC-luoDoNG-nfNPOla25ZbtwM1ay5rEcmRJxwA8HD-hjb7yS0YRQnVvxd_P-C1kHdA211C4CdLkWYV-aAGOEMz-TH2hdnu1v8P28RbMIGMwhZZqedtaJy9WfS8NQT96Jyn0"/>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto relative">
+<!-- Hero Section -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Left Side: Text & CTA -->
+<div class="lg:col-span-5 flex flex-col items-start z-10">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-headline font-bold text-sm mb-6">
+<span class="material-symbols-outlined text-[18px]">explore</span>
+                    NEW EXPEDITION AVAILABLE
+                </div>
+<h1 class="text-6xl md:text-7xl font-headline font-extrabold text-on-surface leading-[1.1] tracking-tight mb-6">
+                    World <span class="text-primary italic">Explorer</span> Quiz
+                </h1>
+<p class="text-xl md:text-2xl text-on-surface-variant font-medium max-w-lg mb-10 leading-relaxed">
+                    Discover amazing places, fun facts, and flags from around the globe!
+                </p>
+<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+<button class="px-10 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-headline font-extrabold text-xl shadow-lg shadow-primary/30 hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-3">
+                        Start Quiz
+                        <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+</button>
+<button class="px-10 py-5 bg-surface-container-highest text-primary rounded-xl font-headline font-bold text-xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center">
+                        Daily Challenge
+                    </button>
+</div>
+<!-- Stats/Social Proof -->
+<div class="mt-12 flex items-center gap-6">
+<div class="flex -space-x-4">
+<img alt="Explorer A" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcL8kkm3IhPNcFCPnNqGRe2cU__iQyNek2E_1KjDOGuFMWHp2oYBGKxmDkijKfOwdJu3sQeBUflamUzkJl3LlolYUkUkoc_HEja_4La0OrIEbIqRLeVNKqghoGYtcdnwc1IEAjS_uhg2q4AY67ZmTmCmnsSsUWTolPkSFbXKBpTs5_s4AbvmuW2hgPLaoAG_iHoXHVGxkUYwIrcCWfPkNg0AkT_jUTBKyrw6jF_k_4iiYLk8iBZYY-YYLA1Hu3mu2ahP5oeuvb3jg"/>
+<img alt="Explorer B" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjzbn_Zd4PaSQmsPRhHty499FBjuVMEjFkMoIvFzR61i9U0yQizDqM5YISU7PS8QbYUMM76lyFDFtUvyFoh6iZGXJXKmHqaPUC_hJs6W4kuQ4YjMzTfsvsXbgFx6oPJkamDxoEcR86yhHdCG-UkERYyY5-OnbbUw3160Q1Xgu0LlJef6b2MfyeWp-zHmzKgcqTLCJbDyl0HiZyNva7d9m_8GAflkZZ5-8Ua0i0dWlxaR7x1mufe2WJ_GJQO4P8DHzbgQgl8QUBnU"/>
+<img alt="Explorer C" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNf5WEO7dunU5aibUErrSWJ23aWJ-44qoDIk7f-vgCuKD2NWtWhvXRCvGVOlhhrXycjKfD1WxZkcjeajOqw50UxOtskWHY086snHXXAz5Yfz99M7ytCNTwm4AXmzOlI9wtZXG_To258_nPyHcFaLbEPmjcproB4XpbF8UMrBqw1kKU1Tm9wAOPzW6QAiLLIQ2ECv9OVnP5M2h81ERS8LVeTu0PAPWMFZdsl9hfgOpMvk7ZcARcazn9bpJb4BaKjRqC2pGm-KB0S0A"/>
+</div>
+<div class="text-sm font-bold text-on-surface-variant">
+<span class="text-primary">+4.2k</span> explorers active now
+                    </div>
+</div>
+</div>
+<!-- Right Side: Visual Map Hero -->
+<div class="lg:col-span-7 relative">
+<!-- Decorative background blob -->
+<div class="absolute inset-0 bg-primary-container/20 rounded-full blur-[100px] -z-10 transform scale-110"></div>
+<!-- Main Map Illustration -->
+<div class="relative bg-white/40 p-4 rounded-xl border-4 border-white shadow-2xl overflow-hidden glass-panel">
+<img alt="Colorful Illustrated World Map" class="w-full h-auto rounded-lg object-cover aspect-[4/3]" data-alt="vibrant digital illustration of a stylized world map with icons of animals, monuments like Eiffel Tower and Taj Mahal, and colorful geography for kids" data-location="World" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHjbEck_Qe0dOdsV2sA7ht1EVxMRyHoZBpxw9_H5IVGNGvIzR6c6mcoBAwLh5v8IE6PwTFGe0N0OHVurhQrctTK-tNvKybFdI6v5i7wiXUAZ4QBL-YnQ2moA5u98ez47_tVcO6E_I6M6R_V4g5X40UgRALHbvCBPflMftPsiiQpaEVPTaBtpQcDujL9Cy_w2AAWtXx6adkatMcZsS0ahCuM4RerIb4HPYAbnQSiAXxpThRFOHjYu-kQR5KosW8TJzHv17jFpETcV0"/>
+<!-- Floating UI elements over map -->
+<div class="absolute top-8 left-8 bg-white p-4 rounded-lg shadow-xl flex items-center gap-3 animate-bounce-slow">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">public</span>
+</div>
+<div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Destination</div>
+<div class="text-sm font-black text-on-surface">Great Barrier Reef</div>
+</div>
+</div>
+<div class="absolute bottom-8 right-8 bg-white p-4 rounded-lg shadow-xl flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+</div>
+<div>
+<div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">New Badge</div>
+<div class="text-sm font-black text-on-surface">Ocean Master</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bento Grid Feature Sections -->
+<section class="mt-32">
+<h2 class="text-3xl font-headline font-extrabold text-on-surface mb-12">Level up your geography skills</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Card 1 -->
+<div class="p-8 rounded-xl bg-surface-container-low hover:scale-[1.02] transition-transform flex flex-col gap-6">
+<div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-3xl">map</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Interactive Maps</h3>
+<p class="text-on-surface-variant font-medium leading-relaxed">Zoom into specific regions and discover hidden secrets about every continent.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="p-8 rounded-xl bg-surface-container hover:scale-[1.02] transition-transform flex flex-col gap-6">
+<div class="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center text-white shadow-lg shadow-secondary/20">
+<span class="material-symbols-outlined text-3xl">quiz</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Fun Fact Challenges</h3>
+<p class="text-on-surface-variant font-medium leading-relaxed">Learn about animals, local foods, and traditions through interactive quizzes.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="p-8 rounded-xl bg-tertiary-container/20 hover:scale-[1.02] transition-transform flex flex-col gap-6 border-2 border-tertiary-container/30">
+<div class="w-14 h-14 rounded-2xl bg-tertiary flex items-center justify-center text-white shadow-lg shadow-tertiary/20">
+<span class="material-symbols-outlined text-3xl">workspace_premium</span>
+</div>
+<div>
+<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Badge System</h3>
+<p class="text-on-surface-variant font-medium leading-relaxed">Collect limited edition badges as you master different parts of the globe.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-950">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="text-blue-600 font-black text-xl uppercase italic font-headline">
+                    GeoExplorer
+                </div>
+<p class="font-['Be_Vietnam_Pro'] text-sm text-slate-500">© 2024 Digital Explorer Field Kit</p>
+</div>
+<div class="flex gap-8">
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Parents' Portal</a>
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Safety First</a>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">share</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined">help</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-[3rem] px-4 pb-4 pt-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(35,44,81,0.04)] flex justify-around items-center">
+<a class="flex flex-col items-center justify-center bg-blue-600 text-white rounded-[2rem] px-6 py-2 shadow-lg shadow-blue-500/30 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Adventure</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Quizzes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Badges</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Profile</span>
+</a>
+</nav>
+<!-- FAB (Suppressed on Landing but here for structure if needed later) -->
+<!-- Suppressed: Primary action is center screen Start Button -->
+</body></html>
