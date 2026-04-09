@@ -133,7 +133,10 @@
                         <span class="material-symbols-outlined text-2xl">arrow_forward</span>
 </button>
 <button class="px-10 py-5 bg-surface-container-highest text-primary rounded-xl font-headline font-bold text-xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center">
-                        Daily Challenge
+                        <button onclick="document.getElementById('challengePopup').style.display='flex'" 
+    class="your-existing-classes">
+    Daily Challenge
+</button>
                     </button>
 </div>
 <!-- Stats/Social Proof -->
@@ -259,4 +262,174 @@
 </nav>
 <!-- FAB (Suppressed on Landing but here for structure if needed later) -->
 <!-- Suppressed: Primary action is center screen Start Button -->
+      <!-- GeoExplorer AI Chatbot -->
+
+<!-- Chat Button -->
+<button onclick="document.getElementById('chatBox').style.display='flex'"
+    style="position:fixed; bottom:30px; right:30px;
+           background:#4361ee; color:white;
+           border:none; border-radius:50px;
+           padding:16px 24px; font-size:15px;
+           font-weight:700; cursor:pointer;
+           box-shadow:0 8px 25px rgba(67,97,238,0.4);
+           z-index:9998; display:flex;
+           align-items:center; gap:8px;">
+    🌍 Ask GeoBot
+</button>
+
+<!-- Chat Box -->
+<div id="chatBox"
+    style="display:none; position:fixed;
+           bottom:30px; right:30px;
+           width:350px; height:500px;
+           background:white; border-radius:20px;
+           box-shadow:0 20px 60px rgba(0,0,0,0.2);
+           z-index:9999; flex-direction:column;
+           overflow:hidden;">
+
+    <!-- Header -->
+    <div style="background:#4361ee; padding:16px 20px;
+                display:flex; justify-content:space-between;
+                align-items:center;">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <span style="font-size:24px;">🌍</span>
+            <div>
+                <div style="color:white; font-weight:700; 
+                            font-size:15px;">GeoBot</div>
+                <div style="color:rgba(255,255,255,0.7); 
+                            font-size:11px;">Your Geography Assistant</div>
+            </div>
+        </div>
+        <button onclick="document.getElementById('chatBox').style.display='none'"
+            style="background:none; border:none;
+                   color:white; font-size:22px;
+                   cursor:pointer;">✕</button>
+    </div>
+
+    <!-- Messages Area -->
+    <div id="chatMessages"
+        style="flex:1; overflow-y:auto;
+               padding:16px; display:flex;
+               flex-direction:column; gap:12px;
+               background:#f8f9ff;">
+
+        <!-- Welcome Message -->
+        <div style="background:white; padding:12px 16px;
+                    border-radius:12px; font-size:13px;
+                    color:#333; max-width:85%;
+                    box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            👋 Hi Explorer! I'm GeoBot! Ask me anything about countries, capitals, flags or geography! 🗺️
+        </div>
+    </div>
+
+    <!-- Input Area -->
+    <div style="padding:12px; background:white;
+                border-top:1px solid #eee;
+                display:flex; gap:8px;">
+        <input id="chatInput"
+               type="text"
+               placeholder="Ask about any country..."
+               onkeypress="if(event.key==='Enter') sendMessage()"
+               style="flex:1; padding:10px 14px;
+                      border:1.5px solid #e0e0e0;
+                      border-radius:10px; font-size:13px;
+                      outline:none;"
+               onfocus="this.style.border='1.5px solid #4361ee'"
+               onblur="this.style.border='1.5px solid #e0e0e0'">
+        <button onclick="sendMessage()"
+            style="background:#4361ee; color:white;
+                   border:none; border-radius:10px;
+                   padding:10px 16px; font-size:18px;
+                   cursor:pointer;">➤</button>
+    </div>
+</div>
+
+<!-- Chatbot Script -->
+<script>
+async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const messages = document.getElementById('chatMessages');
+    const userText = input.value.trim();
+    
+    if (!userText) return;
+
+    // Show user message
+    messages.innerHTML += `
+        <div style="background:#4361ee; color:white;
+                    padding:12px 16px; border-radius:12px;
+                    font-size:13px; max-width:85%;
+                    align-self:flex-end; margin-left:auto;
+                    box-shadow:0 2px 8px rgba(67,97,238,0.3);">
+            ${userText}
+        </div>`;
+    
+    input.value = '';
+    messages.scrollTop = messages.scrollHeight;
+
+    // Show typing indicator
+    messages.innerHTML += `
+        <div id="typing"
+             style="background:white; padding:12px 16px;
+                    border-radius:12px; font-size:13px;
+                    color:#999; max-width:85%;
+                    box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+            GeoBot is thinking... 🌍
+        </div>`;
+    messages.scrollTop = messages.scrollHeight;
+
+    try {
+        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer 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'
+            },
+            body: JSON.stringify({
+                model: 'llama3-8b-8192',
+                messages: [
+                    {
+                        role: 'system',
+                        content: `You are GeoBot, a fun and friendly geography 
+                        assistant for kids aged 12-14 on the GeoExplorer Quiz 
+                        website. You answer questions about countries, capitals, 
+                        flags, cultures, continents and world geography. 
+                        Keep answers short, fun and educational. 
+                        Use emojis to make it engaging!`
+                    },
+                    {
+                        role: 'user',
+                        content: userText
+                    }
+                ],
+                max_tokens: 200
+            })
+        });
+
+        const data = await response.json();
+        const botReply = data.choices[0].message.content;
+
+        // Remove typing indicator
+        document.getElementById('typing').remove();
+
+        // Show bot reply
+        messages.innerHTML += `
+            <div style="background:white; padding:12px 16px;
+                        border-radius:12px; font-size:13px;
+                        color:#333; max-width:85%;
+                        box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+                ${botReply}
+            </div>`;
+        messages.scrollTop = messages.scrollHeight;
+
+    } catch (error) {
+        document.getElementById('typing').remove();
+        messages.innerHTML += `
+            <div style="background:white; padding:12px 16px;
+                        border-radius:12px; font-size:13px;
+                        color:#e74c3c; max-width:85%;">
+                Oops! GeoBot is unavailable. Try again! 🔄
+            </div>`;
+    }
+}
+</script>
 </body></html>
