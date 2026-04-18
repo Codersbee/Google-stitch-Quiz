@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GeoExplorer - Quiz Challenge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be+Vietnam+Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary": "#765600",
+              "inverse-on-surface": "#929bc6",
+              "surface-dim": "#cad2ff",
+              "surface": "#f7f5ff",
+              "primary": "#0058ba",
+              "inverse-primary": "#4a8eff",
+              "primary-dim": "#004da4",
+              "on-tertiary": "#fff1db",
+              "on-secondary-fixed-variant": "#00682a",
+              "on-primary-fixed": "#000000",
+              "tertiary-container": "#fbbc05",
+              "surface-tint": "#0058ba",
+              "outline": "#6c759e",
+              "on-background": "#232c51",
+              "tertiary-fixed-dim": "#eaaf00",
+              "on-tertiary-container": "#543c00",
+              "secondary-fixed": "#86f898",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#efefff",
+              "background": "#f7f5ff",
+              "primary-container": "#6c9fff",
+              "on-tertiary-fixed": "#3a2900",
+              "outline-variant": "#a2abd7",
+              "on-secondary-container": "#005d25",
+              "on-primary-container": "#00214e",
+              "primary-fixed-dim": "#5091ff",
+              "error-container": "#fb5151",
+              "tertiary-dim": "#674b00",
+              "on-secondary": "#cfffcf",
+              "surface-variant": "#d5dbff",
+              "error": "#b31b25",
+              "secondary-dim": "#005d24",
+              "on-surface-variant": "#505a81",
+              "tertiary-fixed": "#fbbc05",
+              "surface-container": "#e4e7ff",
+              "inverse-surface": "#020a2f",
+              "secondary-container": "#86f898",
+              "on-primary": "#f0f2ff",
+              "secondary-fixed-dim": "#78e98b",
+              "on-secondary-fixed": "#00481b",
+              "surface-container-highest": "#d5dbff",
+              "on-primary-fixed-variant": "#002a60",
+              "surface-container-high": "#dde1ff",
+              "surface-bright": "#f7f5ff",
+              "on-error": "#ffefee",
+              "on-tertiary-fixed-variant": "#5f4500",
+              "error-dim": "#9f0519",
+              "on-error-container": "#570008",
+              "secondary": "#006a2b",
+              "on-surface": "#232c51",
+              "primary-fixed": "#6c9fff"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Be Vietnam Pro"],
+              "label": ["Plus Jakarta Sans"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 rounded-b-[2.5rem] bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_12px_40px_rgba(35,44,81,0.06)]">
+<div class="flex justify-between items-center px-8 py-5 w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-black text-blue-600 dark:text-blue-400 uppercase italic font-headline">GeoExplorer</span>
+</div>
+<!-- Progress Tracker Integrated in Center-ish -->
+<div class="hidden md:flex flex-col items-center gap-2 flex-1 max-w-md mx-8">
+<div class="flex justify-between w-full px-2 text-xs font-bold text-primary font-headline">
+<span>PROGRESS</span>
+<span>1 of 10</span>
+</div>
+<div class="w-full h-3 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: 10%;"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="bg-primary-container/20 px-6 py-2 rounded-full border-2 border-primary/10 shadow-sm">
+<span class="text-primary font-headline font-extrabold text-lg">1,240 XP</span>
+</div>
+<img alt="Young Explorer Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow-md" data-alt="Close-up portrait of a cheerful young teenager with adventurous gear, soft natural outdoor lighting, professional photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQYSfgoT3a6NHfkTviumDMduG6KiLrnTauQ4zkCzvAKaY4XJY4fQKujB2pp85Ex-70RXyv2sfBX5RRDRUS-3SjiUmRl4h_tGnRPLwhOD2eNRmpZx_9NN4JHitQHou8fW6BMWWighi1X-ItL7UcA0kNnDmiHQhDiTYKZG-btucfDxLV0i91pJ73P4GMnGMSu_8w6LMsMCkSo0XPYB8VR1nO8VDHhUyL2CH1eV-XGVsLoSoLRzSZ5b5QW_owRQH1xJ7-QOseF0a8CIY"/>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-24 px-6 max-w-5xl mx-auto w-full flex flex-col items-center">
+<!-- Mobile Progress Bar (Visible only on small screens) -->
+<div class="md:hidden w-full mb-8 flex flex-col gap-2">
+<div class="flex justify-between items-center font-headline font-bold text-primary px-2">
+<span class="text-sm">QUEST PROGRESS</span>
+<span class="bg-primary text-white px-3 py-1 rounded-full text-xs">1/10</span>
+</div>
+<div class="w-full h-4 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full" style="width: 10%;"></div>
+</div>
+</div>
+<!-- Quiz Question Header -->
+<header class="text-center mb-10 w-full">
+<h1 class="font-headline font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight leading-tight">
+                Which country does this flag belong to?
+            </h1>
+<p class="mt-4 text-on-surface-variant font-medium text-lg">
+                Identify the national colors and symbols to earn your <span class="text-secondary font-bold">Vexillology Badge</span>.
+            </p>
+</header>
+<!-- Flag Module: Asymmetric Layering -->
+<section class="relative w-full max-w-2xl mb-12">
+<!-- Decorative "Field Kit" Background Element -->
+<div class="absolute -top-6 -left-6 w-32 h-32 bg-secondary-container/30 rounded-full blur-3xl -z-10"></div>
+<div class="absolute -bottom-8 -right-8 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl -z-10"></div>
+<div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_60px_rgba(35,44,81,0.08)] transform hover:rotate-1 transition-transform duration-500">
+<div class="aspect-[3/2] rounded-lg overflow-hidden shadow-inner border-[12px] border-surface-container-low">
+<img alt="Brazilian Flag" class="w-full h-full object-cover" data-alt="The national flag of Brazil with its vibrant green field, yellow rhombus, and blue globe with white stars and Ordem e Progresso motto" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdOcBux_IJRhbmYTxGwIlP4xuRLtgTQ5cy_1JX2MYVSd6hZnTdORbuHXLGrjNGn_zx4Ged8SAUraP5dy0BS0OKyv75N_H7pv_5za5nAonf877s0XEBHnix8y1lXvVbYKp2KOvWZ63RwtNpWEurkwSnWTYP9421etaayyCBB-E7gk0rKg32Hubo2sd9vNFqiAGGcyL62HyslnC2__gGJHB5N93ExuM4aG2ybo7Fe3a7sWNDkr30oF6zC0Sm0FwNdp8hNoXk6e80HIM"/>
+</div>
+</div>
+</section>
+<!-- Answer Grid: Bento Style Interaction -->
+<section class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+<!-- Option 1: Brazil (Selected State) -->
+<button class="group relative flex items-center justify-between p-6 bg-primary text-on-primary rounded-full shadow-xl shadow-primary/30 transform active:scale-95 transition-all duration-300">
+<div class="flex items-center gap-5">
+<span class="w-12 h-12 flex items-center justify-center bg-white/20 rounded-full font-headline font-black text-xl">A</span>
+<span class="font-headline font-bold text-2xl tracking-tight">Brazil</span>
+</div>
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="absolute inset-0 border-4 border-white/20 rounded-full pointer-events-none"></div>
+</button>
+<!-- Option 2: Argentina -->
+<button class="group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md hover:shadow-xl hover:bg-surface-container-low transform active:scale-95 transition-all duration-300">
+<div class="flex items-center gap-5">
+<span class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full font-headline font-black text-xl text-primary">B</span>
+<span class="font-headline font-bold text-2xl tracking-tight">Argentina</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">radio_button_unchecked</span>
+</button>
+<!-- Option 3: Chile -->
+<button class="group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md hover:shadow-xl hover:bg-surface-container-low transform active:scale-95 transition-all duration-300">
+<div class="flex items-center gap-5">
+<span class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full font-headline font-black text-xl text-primary">C</span>
+<span class="font-headline font-bold text-2xl tracking-tight">Chile</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">radio_button_unchecked</span>
+</button>
+<!-- Option 4: Peru -->
+<button class="group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md hover:shadow-xl hover:bg-surface-container-low transform active:scale-95 transition-all duration-300">
+<div class="flex items-center gap-5">
+<span class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full font-headline font-black text-xl text-primary">D</span>
+<span class="font-headline font-bold text-2xl tracking-tight">Peru</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">radio_button_unchecked</span>
+</button>
+</section>
+<!-- Navigation / Submission Footer -->
+<footer class="w-full flex justify-between items-center mt-auto py-8">
+<button class="flex items-center gap-2 text-on-surface-variant font-headline font-bold hover:text-primary transition-colors">
+<span class="material-symbols-outlined">arrow_back</span>
+                PREVIOUS
+            </button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-12 py-5 rounded-full font-headline font-black text-xl shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+                SUBMIT ANSWER
+            </button>
+</footer>
+</main>
+<!-- BottomNavBar (Mobile Only Rule) -->
+<div class="md:hidden fixed bottom-0 w-full z-50 rounded-t-[3rem] px-4 pb-6 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(35,44,81,0.04)]">
+<div class="flex justify-around items-center py-4">
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="map">map</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Adventure</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-blue-600 text-white rounded-[2rem] px-6 py-2 shadow-lg shadow-blue-500/30 active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="quiz">quiz</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Quizzes</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="workspace_premium">workspace_premium</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Badges</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Profile</span>
+</a>
+</div>
+</div>
+<!-- Generic Footer for Web (Desktop only) -->
+<footer class="hidden md:block w-full py-12 px-8 bg-slate-50 dark:bg-slate-950 mt-12">
+<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+<div class="flex items-center gap-2">
+<span class="text-blue-600 font-black text-xl italic font-headline uppercase">GeoExplorer</span>
+<span class="font-['Be_Vietnam_Pro'] text-sm text-slate-500">© 2024 Digital Explorer Field Kit</span>
+</div>
+<div class="flex gap-8">
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Parents' Portal</a>
+<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Safety First</a>
+</div>
+</div>
+</footer>
+</body></html>
