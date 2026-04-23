@@ -1,493 +1,530 @@
 <!DOCTYPE html>
-
-<html class="light" lang="en"><head>
+<html lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GeoExplorer - Quiz Challenge</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Be_Vietnam_Pro:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              "primary-fixed-dim": "#5091ff",
-              "surface-container-lowest": "#ffffff",
-              "on-tertiary-fixed-variant": "#5f4500",
-              "on-surface": "#232c51",
-              "on-primary": "#f0f2ff",
-              "surface-tint": "#0058ba",
-              "on-primary-fixed": "#000000",
-              "on-tertiary-container": "#543c00",
-              "on-secondary-container": "#005d25",
-              "tertiary-fixed-dim": "#eaaf00",
-              "tertiary-container": "#fbbc05",
-              "inverse-surface": "#020a2f",
-              "on-background": "#232c51",
-              "error-container": "#fb5151",
-              "surface-dim": "#cad2ff",
-              "inverse-on-surface": "#929bc6",
-              "on-surface-variant": "#505a81",
-              "error-dim": "#9f0519",
-              "secondary-fixed": "#86f898",
-              "on-error-container": "#570008",
-              "background": "#f7f5ff",
-              "error": "#b31b25",
-              "secondary-fixed-dim": "#78e98b",
-              "on-error": "#ffefee",
-              "tertiary": "#765600",
-              "on-secondary": "#cfffcf",
-              "surface-container-low": "#efefff",
-              "surface": "#f7f5ff",
-              "on-tertiary-fixed": "#3a2900",
-              "surface-container-highest": "#d5dbff",
-              "primary-container": "#6c9fff",
-              "surface-container": "#e4e7ff",
-              "secondary-dim": "#005d24",
-              "surface-variant": "#d5dbff",
-              "secondary": "#006a2b",
-              "primary-fixed": "#6c9fff",
-              "primary": "#0058ba",
-              "on-secondary-fixed-variant": "#00682a",
-              "surface-container-high": "#dde1ff",
-              "on-primary-container": "#00214e",
-              "outline-variant": "#a2abd7",
-              "primary-dim": "#004da4",
-              "secondary-container": "#86f898",
-              "tertiary-dim": "#674b00",
-              "on-primary-fixed-variant": "#002a60",
-              "inverse-primary": "#4a8eff",
-              "on-tertiary": "#fff1db",
-              "tertiary-fixed": "#fbbc05",
-              "on-secondary-fixed": "#00481b",
-              "surface-bright": "#f7f5ff",
-              "outline": "#6c759e"
-            },
-            fontFamily: {
-              "headline": ["Plus Jakarta Sans"],
-              "body": ["Be Vietnam Pro"],
-              "label": ["Plus Jakarta Sans"]
-            },
-            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
-          },
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary": "#765600","inverse-on-surface": "#929bc6","surface-dim": "#cad2ff",
+          "surface": "#f7f5ff","primary": "#0058ba","inverse-primary": "#4a8eff",
+          "primary-dim": "#004da4","on-tertiary": "#fff1db","on-secondary-fixed-variant": "#00682a",
+          "on-primary-fixed": "#000000","tertiary-container": "#fbbc05","surface-tint": "#0058ba",
+          "outline": "#6c759e","on-background": "#232c51","tertiary-fixed-dim": "#eaaf00",
+          "on-tertiary-container": "#543c00","secondary-fixed": "#86f898",
+          "surface-container-lowest": "#ffffff","surface-container-low": "#efefff",
+          "background": "#f7f5ff","primary-container": "#6c9fff","on-tertiary-fixed": "#3a2900",
+          "outline-variant": "#a2abd7","on-secondary-container": "#005d25",
+          "on-primary-container": "#00214e","primary-fixed-dim": "#5091ff",
+          "error-container": "#fb5151","tertiary-dim": "#674b00","on-secondary": "#cfffcf",
+          "surface-variant": "#d5dbff","error": "#b31b25","secondary-dim": "#005d24",
+          "on-surface-variant": "#505a81","tertiary-fixed": "#fbbc05",
+          "surface-container": "#e4e7ff","inverse-surface": "#020a2f",
+          "secondary-container": "#86f898","on-primary": "#f0f2ff","secondary-fixed-dim": "#78e98b",
+          "on-secondary-fixed": "#00481b","surface-container-highest": "#d5dbff",
+          "on-primary-fixed-variant": "#002a60","surface-container-high": "#dde1ff",
+          "surface-bright": "#f7f5ff","on-error": "#ffefee","on-tertiary-fixed-variant": "#5f4500",
+          "error-dim": "#9f0519","on-error-container": "#570008","secondary": "#006a2b",
+          "on-surface": "#232c51","primary-fixed": "#6c9fff"
         },
-      }
-    </script>
+        fontFamily: {"headline": ["Plus Jakarta Sans"],"body": ["Be Vietnam Pro"],"label": ["Plus Jakarta Sans"]},
+        borderRadius: {"DEFAULT": "1rem","lg": "2rem","xl": "3rem","full": "9999px"},
+      },
+    },
+  }
+</script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            display: inline-block;
-            line-height: 1;
-        }
-        .glass-panel {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-        }
-    </style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .option-correct { background: #006a2b !important; color: white !important; }
+  .option-wrong   { background: #b31b25 !important; color: white !important; }
+  .option-disabled { pointer-events: none; opacity: 0.6; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
+  .shake { animation: shake 0.4s ease; }
+  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.05)} 100%{transform:scale(1)} }
+  .pop { animation: pop 0.3s ease; }
+</style>
 </head>
-<body class="bg-surface font-body text-on-surface antialiased overflow-x-hidden">
+<body class="bg-surface font-body text-on-surface min-h-screen flex flex-col">
+
+<!-- ===== QUIZ DATA ===== -->
+<script>
+// ===== SUPABASE SETUP =====
+const SUPABASE_URL = 'https://oeobhzpkdmfnibhvonsq.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_KCp4-j45I98OOvS3bqVmJA_4fvSWqZA';
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+// Save score to Supabase
+async function saveScore(name, score, total) {
+  try {
+    const { error } = await supabaseClient
+      .from('quiz_results')
+      .insert([{
+        name: name,
+        score: score,
+        total: total,
+        percentage: Math.round((score / total) * 100)
+      }]);
+    if (error) throw error;
+    console.log('Score saved!');
+  } catch (err) {
+    console.error('Could not save score:', err);
+  }
+}
+
+// Student name (set on name screen)
+let studentName = '';
+
+// Show name entry screen first
+function showNameScreen() {
+  document.querySelector('main').innerHTML = `
+    <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-6 py-12">
+      <div style="font-size:70px; margin-bottom:16px;">🌍</div>
+      <h1 class="font-headline font-extrabold text-5xl text-on-surface mb-4">
+        Welcome Explorer!
+      </h1>
+      <p class="text-on-surface-variant text-xl mb-10">
+        Enter your name to start the quiz!
+      </p>
+      <div class="w-full max-w-md">
+        <input id="student-name"
+          type="text"
+          placeholder="Your name here..."
+          maxlength="30"
+          style="width:100%; padding:16px 24px;
+                 border:2px solid #a2abd7;
+                 border-radius:50px; font-size:18px;
+                 outline:none; text-align:center;
+                 font-family:'Plus Jakarta Sans';
+                 margin-bottom:16px;"
+          onfocus="this.style.border='2px solid #0058ba'"
+          onblur="this.style.border='2px solid #a2abd7'"
+          onkeypress="if(event.key==='Enter') startQuiz()">
+        <br/>
+        <button onclick="startQuiz()"
+          class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-16 py-5 rounded-full font-headline font-black text-xl shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all mt-4">
+          Let's Go! 🚀
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function startQuiz() {
+  const nameInput = document.getElementById('student-name');
+  if (!nameInput.value.trim()) {
+    nameInput.style.border = '2px solid #b31b25';
+    nameInput.placeholder = 'Please enter your name!';
+    return;
+  }
+  studentName = nameInput.value.trim();
+  // Rebuild main content and load quiz
+  document.querySelector('main').innerHTML = mainContent;
+  loadQuestion();
+}
+
+// Store main content HTML to restore after name screen
+let mainContent = '';
+
+const questions = [
+  {
+    question: "Which country does this flag belong to?",
+    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDdOcBux_IJRhbmYTxGwIlP4xuRLtgTQ5cy_1JX2MYVSd6hZnTdORbuHXLGrjNGn_zx4Ged8SAUraP5dy0BS0OKyv75N_H7pv_5za5nAonf877s0XEBHnix8y1lXvVbYKp2KOvWZ63RwtNpWEurkwSnWTYP9421etaayyCBB-E7gk0rKg32Hubo2sd9vNFqiAGGcyL62HyslnC2__gGJHB5N93ExuM4aG2ybo7Fe3a7sWNDkr30oF6zC0Sm0FwNdp8hNoXk6e80HIM",
+    imageAlt: "Brazilian Flag",
+    options: ["Brazil", "Argentina", "Chile", "Peru"],
+    correct: 0,
+    badge: "Vexillology Badge",
+    fact: "Brazil's flag has 27 stars representing its states and a blue globe with the motto 'Ordem e Progresso'!"
+  },
+  {
+    question: "What is the capital city of Japan?",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png",
+    imageAlt: "Japan Flag",
+    options: ["Osaka", "Tokyo", "Kyoto", "Hiroshima"],
+    correct: 1,
+    badge: "Asia Explorer Badge",
+    fact: "Tokyo is one of the most populated cities in the world with over 13 million people!"
+  },
+  {
+    question: "Which is the largest country in the world by area?",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Flag_of_Russia.svg/1200px-Flag_of_Russia.svg.png",
+    imageAlt: "Russia Flag",
+    options: ["Canada", "China", "Russia", "USA"],
+    correct: 2,
+    badge: "World Scale Badge",
+    fact: "Russia covers about 17.1 million square kilometers — that's nearly twice the size of Canada!"
+  },
+  {
+    question: "On which continent is Egypt located?",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Flag_of_Egypt.svg/1200px-Flag_of_Egypt.svg.png",
+    imageAlt: "Egypt Flag",
+    options: ["Asia", "Europe", "South America", "Africa"],
+    correct: 3,
+    badge: "Africa Explorer Badge",
+    fact: "Egypt is home to the Great Pyramid of Giza — one of the Seven Wonders of the Ancient World!"
+  },
+  {
+    question: "Which country has the longest coastline in the world?",
+    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Flag_of_Canada_%28Pantone%29.svg/1200px-Flag_of_Canada_%28Pantone%29.svg.png",
+    imageAlt: "Canada Flag",
+    options: ["Australia", "Norway", "Canada", "Indonesia"],
+    correct: 2,
+    badge: "Coastline Master Badge",
+    fact: "Canada has a coastline of about 202,080 km — more than any other country on Earth!"
+  }
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  answered = false;
+
+  // Update progress
+  const progress = ((currentQuestion) / questions.length) * 100;
+  document.querySelectorAll('.progress-bar').forEach(b => b.style.width = progress + '%');
+  document.querySelectorAll('.progress-text').forEach(t => t.textContent = (currentQuestion + 1) + ' of ' + questions.length);
+
+  // Update question
+  document.getElementById('question-text').textContent = q.question;
+  document.getElementById('flag-image').src = q.image;
+  document.getElementById('flag-image').alt = q.imageAlt;
+  document.getElementById('badge-name').textContent = q.badge;
+  document.getElementById('feedback-box').classList.add('hidden');
+
+  // Update options
+  const optionLetters = ['A', 'B', 'C', 'D'];
+  const optionBtns = document.querySelectorAll('.option-btn');
+  optionBtns.forEach((btn, i) => {
+    btn.className = "option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md hover:shadow-xl hover:bg-surface-container-low transform active:scale-95 transition-all duration-300 w-full text-left";
+    btn.innerHTML = `
+      <div class="flex items-center gap-5">
+        <span class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full font-headline font-black text-xl text-primary">${optionLetters[i]}</span>
+        <span class="font-headline font-bold text-2xl tracking-tight">${q.options[i]}</span>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">radio_button_unchecked</span>
+    `;
+    btn.onclick = () => selectAnswer(i);
+  });
+
+  // Update submit button
+  document.getElementById('submit-btn').textContent = 'SUBMIT ANSWER';
+  document.getElementById('submit-btn').onclick = submitAnswer;
+}
+
+function selectAnswer(index) {
+  if (answered) return;
+  const optionBtns = document.querySelectorAll('.option-btn');
+  const optionLetters = ['A', 'B', 'C', 'D'];
+  const q = questions[currentQuestion];
+
+  // Deselect all
+  optionBtns.forEach((btn, i) => {
+    btn.className = "option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md hover:shadow-xl hover:bg-surface-container-low transform active:scale-95 transition-all duration-300 w-full text-left";
+    btn.innerHTML = `
+      <div class="flex items-center gap-5">
+        <span class="w-12 h-12 flex items-center justify-center bg-surface-container-high rounded-full font-headline font-black text-xl text-primary">${optionLetters[i]}</span>
+        <span class="font-headline font-bold text-2xl tracking-tight">${q.options[i]}</span>
+      </div>
+      <span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">radio_button_unchecked</span>
+    `;
+    btn.onclick = () => selectAnswer(i);
+  });
+
+  // Select clicked
+  optionBtns[index].className = "option-btn group relative flex items-center justify-between p-6 bg-primary text-on-primary rounded-full shadow-xl shadow-primary/30 transform active:scale-95 transition-all duration-300 w-full text-left pop";
+  optionBtns[index].innerHTML = `
+    <div class="flex items-center gap-5">
+      <span class="w-12 h-12 flex items-center justify-center bg-white/20 rounded-full font-headline font-black text-xl">${optionLetters[index]}</span>
+      <span class="font-headline font-bold text-2xl tracking-tight">${q.options[index]}</span>
+    </div>
+    <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+  `;
+  optionBtns[index].dataset.selected = index;
+}
+
+function submitAnswer() {
+  if (answered) return;
+
+  const optionBtns = document.querySelectorAll('.option-btn');
+  const q = questions[currentQuestion];
+  const optionLetters = ['A', 'B', 'C', 'D'];
+
+  // Find selected
+  let selected = -1;
+  optionBtns.forEach((btn, i) => {
+    if (btn.dataset.selected !== undefined) selected = parseInt(btn.dataset.selected);
+  });
+
+  if (selected === -1) {
+    alert('Please select an answer first! 🌍');
+    return;
+  }
+
+  answered = true;
+
+  // Show correct / wrong
+  optionBtns.forEach((btn, i) => {
+    btn.classList.add('option-disabled');
+    btn.removeAttribute('data-selected');
+    if (i === q.correct) {
+      btn.className = "option-btn option-correct option-disabled group relative flex items-center justify-between p-6 rounded-full shadow-xl w-full text-left";
+      btn.innerHTML = `
+        <div class="flex items-center gap-5">
+          <span class="w-12 h-12 flex items-center justify-center bg-white/20 rounded-full font-headline font-black text-xl">${optionLetters[i]}</span>
+          <span class="font-headline font-bold text-2xl tracking-tight">${q.options[i]}</span>
+        </div>
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+      `;
+    } else if (i === selected && selected !== q.correct) {
+      btn.className = "option-btn option-wrong option-disabled group relative flex items-center justify-between p-6 rounded-full shadow-xl w-full text-left shake";
+      btn.innerHTML = `
+        <div class="flex items-center gap-5">
+          <span class="w-12 h-12 flex items-center justify-center bg-white/20 rounded-full font-headline font-black text-xl">${optionLetters[i]}</span>
+          <span class="font-headline font-bold text-2xl tracking-tight">${q.options[i]}</span>
+        </div>
+        <span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">cancel</span>
+      `;
+    }
+  });
+
+  // Update score
+  if (selected === q.correct) {
+    score++;
+    document.getElementById('feedback-box').className = "w-full p-6 rounded-2xl bg-secondary-container text-on-secondary-container mb-4";
+    document.getElementById('feedback-icon').textContent = '🎉';
+    document.getElementById('feedback-title').textContent = 'Correct! Well done Explorer!';
+    document.getElementById('feedback-fact').textContent = q.fact;
+  } else {
+    document.getElementById('feedback-box').className = "w-full p-6 rounded-2xl bg-error-container text-on-error-container mb-4";
+    document.getElementById('feedback-icon').textContent = '❌';
+    document.getElementById('feedback-title').textContent = 'Not quite! The correct answer was ' + q.options[q.correct];
+    document.getElementById('feedback-fact').textContent = q.fact;
+  }
+  document.getElementById('feedback-box').classList.remove('hidden');
+
+  // Change button to Next
+  const isLast = currentQuestion === questions.length - 1;
+  document.getElementById('submit-btn').textContent = isLast ? 'SEE RESULTS 🏆' : 'NEXT QUESTION →';
+  document.getElementById('submit-btn').onclick = isLast ? showResults : nextQuestion;
+}
+
+function nextQuestion() {
+  currentQuestion++;
+  loadQuestion();
+  window.scrollTo(0, 0);
+}
+
+function showResults() {
+  const percentage = Math.round((score / questions.length) * 100);
+
+  // Save to Supabase!
+  saveScore(studentName, score, questions.length);
+
+  // Confetti for good scores!
+  if (score >= 3) {
+    confetti({ particleCount: 200, spread: 100, origin: { y: 0.4 } });
+    setTimeout(() => confetti({ particleCount: 100, angle: 60, spread: 80, origin: { x: 0 } }), 400);
+    setTimeout(() => confetti({ particleCount: 100, angle: 120, spread: 80, origin: { x: 1 } }), 600);
+  }
+
+  let emoji = score === questions.length ? '🏆' : score >= 3 ? '🌟' : score >= 2 ? '😊' : '💪';
+  let message = score === questions.length ? 'Perfect Score! You are a Geography Master!' :
+                score >= 3 ? 'Great job Explorer! Almost there!' :
+                score >= 2 ? 'Good effort! Keep exploring!' : 'Keep practising Explorer!';
+
+  document.querySelector('main').innerHTML = `
+    <div class="flex flex-col items-center justify-center min-h-[60vh] text-center px-6 py-12">
+      <div style="font-size:80px; margin-bottom:16px;">${emoji}</div>
+      <h1 class="font-headline font-extrabold text-5xl text-on-surface mb-2">
+        Well done, ${studentName}!
+      </h1>
+      <p class="text-on-surface-variant text-xl mb-10">${message}</p>
+      <div class="bg-surface-container-lowest rounded-2xl shadow-xl p-10 w-full max-w-md mb-10">
+        <div class="text-8xl font-headline font-extrabold text-primary mb-2">
+          ${score}<span class="text-4xl text-on-surface-variant">/${questions.length}</span>
+        </div>
+        <div class="text-2xl font-bold text-on-surface-variant mb-6">${percentage}% Correct</div>
+        <div class="w-full h-4 bg-surface-container-high rounded-full overflow-hidden mb-6">
+          <div class="h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-1000"
+               style="width: ${percentage}%"></div>
+        </div>
+        <div style="font-size:36px; letter-spacing:8px;">
+          ${score >= 1 ? '⭐' : '☆'}${score >= 3 ? '⭐' : '☆'}${score >= 5 ? '⭐' : '☆'}
+        </div>
+        <p style="color:#666; font-size:13px; margin-top:12px;">✅ Your score has been saved!</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-4 w-full max-w-md">
+        <button onclick="restartQuiz()"
+          class="flex-1 bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-5 rounded-full font-headline font-black text-xl shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+          🔄 Try Again
+        </button>
+        <a href="index.html" class="flex-1">
+          <button class="w-full bg-surface-container-highest text-primary px-8 py-5 rounded-full font-headline font-bold text-xl hover:scale-105 active:scale-95 transition-all">
+            🏠 Home
+          </button>
+        </a>
+      </div>
+    </div>
+  `;
+}
+
+function restartQuiz() {
+  currentQuestion = 0;
+  score = 0;
+  answered = false;
+  location.reload();
+}
+
+// Start with name screen
+window.onload = function() {
+  mainContent = document.querySelector('main').innerHTML;
+  showNameScreen();
+}
+</script>
+
 <!-- TopNavBar -->
 <nav class="fixed top-0 w-full z-50 rounded-b-[2.5rem] bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl shadow-[0_12px_40px_rgba(35,44,81,0.06)]">
 <div class="flex justify-between items-center px-8 py-5 w-full max-w-7xl mx-auto">
-<div class="text-2xl font-black text-blue-600 dark:text-blue-400 uppercase italic font-headline tracking-tight">
-                GeoExplorer
-
-   
-            </div>
-<div class="hidden md:flex items-center gap-8">
-<a class="text-blue-700 dark:text-blue-300 font-bold border-b-4 border-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Adventure</a>
-<a href="quiz.html" 
-   class="text-slate-500 dark:text-slate-400 font-medium 
-          hover:text-blue-500 hover:scale-105 
-          transition-all duration-300 active:scale-95">
-   Quizzes
-</a>
-<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Badges</a>
-<a class="text-slate-500 dark:text-slate-400 font-medium hover:text-blue-500 hover:scale-105 transition-all duration-300 active:scale-95" href="#">Profile</a>
-</div>
-<div class="flex items-center gap-4">
-<div class="bg-surface-container-high px-4 py-2 rounded-full font-headline font-bold text-primary flex items-center gap-2">
-<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">stars</span>
-                    1,240 XP
-                </div>
-<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden border-2 border-white shadow-sm">
-<img alt="Young Explorer Avatar" class="w-full h-full object-cover" data-alt="vibrant 3D avatar of a friendly young explorer wearing a yellow hat and blue explorer vest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuByAv0WVbjbj09r1nMv-5tFo2zd0m0Yvvi1CXuszZQh_6WEctZbmkSNID234hVVOq9Jpv1CqPmDkFI4glv7R0SgvCbq94Q0IyBtduF-BUyUf1aeN63ivJjWxCmljaBbuo-FDtc8Xw0AIC-luoDoNG-nfNPOla25ZbtwM1ay5rEcmRJxwA8HD-hjb7yS0YRQnVvxd_P-C1kHdA211C4CdLkWYV-aAGOEMz-TH2hdnu1v8P28RbMIGMwhZZqedtaJy9WfS8NQT96Jyn0"/>
-</div>
-</div>
+  <a href="index.html">
+    <div class="flex items-center gap-4">
+      <span class="text-2xl font-black text-blue-600 dark:text-blue-400 uppercase italic font-headline">GeoExplorer</span>
+    </div>
+  </a>
+  <div class="hidden md:flex flex-col items-center gap-2 flex-1 max-w-md mx-8">
+    <div class="flex justify-between w-full px-2 text-xs font-bold text-primary font-headline">
+      <span>PROGRESS</span>
+      <span class="progress-text">1 of 5</span>
+    </div>
+    <div class="w-full h-3 bg-surface-container-high rounded-full overflow-hidden">
+      <div class="progress-bar h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-500" style="width: 0%;"></div>
+    </div>
+  </div>
+  <div class="flex items-center gap-4">
+    <div class="bg-primary-container/20 px-6 py-2 rounded-full border-2 border-primary/10 shadow-sm">
+      <span class="text-primary font-headline font-extrabold text-lg">1,240 XP</span>
+    </div>
+    <img alt="Young Explorer Avatar" class="w-12 h-12 rounded-full border-2 border-white shadow-md"
+         src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQYSfgoT3a6NHfkTviumDMduG6KiLrnTauQ4zkCzvAKaY4XJY4fQKujB2pp85Ex-70RXyv2sfBX5RRDRUS-3SjiUmRl4h_tGnRPLwhOD2eNRmpZx_9NN4JHitQHou8fW6BMWWighi1X-ItL7UcA0kNnDmiHQhDiTYKZG-btucfDxLV0i91pJ73P4GMnGMSu_8w6LMsMCkSo0XPYB8VR1nO8VDHhUyL2CH1eV-XGVsLoSoLRzSZ5b5QW_owRQH1xJ7-QOseF0a8CIY"/>
+  </div>
 </div>
 </nav>
+
 <!-- Main Content -->
-<main class="pt-32 pb-20 px-6 max-w-7xl mx-auto relative">
-<!-- Hero Section -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<!-- Left Side: Text & CTA -->
-<div class="lg:col-span-5 flex flex-col items-start z-10">
-<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary-container text-on-secondary-container font-headline font-bold text-sm mb-6">
-<span class="material-symbols-outlined text-[18px]">explore</span>
-                    NEW EXPEDITION AVAILABLE
-                </div>
-<h1 class="text-6xl md:text-7xl font-headline font-extrabold text-on-surface leading-[1.1] tracking-tight mb-6">
-                    World <span class="text-primary italic">Explorer</span> Quiz
-                </h1>
-<p class="text-xl md:text-2xl text-on-surface-variant font-medium max-w-lg mb-10 leading-relaxed">
-                    Discover amazing places, fun facts, and flags from around the globe!
-                </p>
-<div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-<a href="quiz.html">
-    <button class="px-10 py-5 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-headline font-extrabold text-xl shadow-lg shadow-primary/30 hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center gap-3">
-        Start Quiz
-        <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+<main class="flex-grow pt-32 pb-24 px-6 max-w-5xl mx-auto w-full flex flex-col items-center">
+
+  <!-- Mobile Progress Bar -->
+  <div class="md:hidden w-full mb-8 flex flex-col gap-2">
+    <div class="flex justify-between items-center font-headline font-bold text-primary px-2">
+      <span class="text-sm">QUEST PROGRESS</span>
+      <span class="bg-primary text-white px-3 py-1 rounded-full text-xs progress-text">1/5</span>
+    </div>
+    <div class="w-full h-4 bg-surface-container-high rounded-full overflow-hidden">
+      <div class="progress-bar h-full bg-gradient-to-r from-primary to-primary-container rounded-full transition-all duration-500" style="width: 0%;"></div>
+    </div>
+  </div>
+
+  <!-- Question Header -->
+  <header class="text-center mb-10 w-full">
+    <h1 id="question-text" class="font-headline font-extrabold text-4xl md:text-5xl text-on-surface tracking-tight leading-tight">
+      Loading...
+    </h1>
+    <p class="mt-4 text-on-surface-variant font-medium text-lg">
+      Identify the national colors and symbols to earn your 
+      <span id="badge-name" class="text-secondary font-bold">Badge</span>.
+    </p>
+  </header>
+
+  <!-- Flag Image -->
+  <section class="relative w-full max-w-2xl mb-12">
+    <div class="absolute -top-6 -left-6 w-32 h-32 bg-secondary-container/30 rounded-full blur-3xl -z-10"></div>
+    <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl -z-10"></div>
+    <div class="bg-surface-container-lowest rounded-xl p-8 shadow-[0_20px_60px_rgba(35,44,81,0.08)] transform hover:rotate-1 transition-transform duration-500">
+      <div class="aspect-[3/2] rounded-lg overflow-hidden shadow-inner border-[12px] border-surface-container-low">
+        <img id="flag-image" alt="Flag" class="w-full h-full object-cover"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feedback Box (hidden by default) -->
+  <div id="feedback-box" class="hidden w-full p-6 rounded-2xl bg-secondary-container text-on-secondary-container mb-4">
+    <div class="flex items-start gap-4">
+      <span id="feedback-icon" style="font-size:32px;">🎉</span>
+      <div>
+        <div id="feedback-title" class="font-headline font-bold text-xl mb-1"></div>
+        <div id="feedback-fact" class="font-body text-sm opacity-80"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Answer Options -->
+  <section class="w-full grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+    <button class="option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md w-full text-left"></button>
+    <button class="option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md w-full text-left"></button>
+    <button class="option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md w-full text-left"></button>
+    <button class="option-btn group relative flex items-center justify-between p-6 bg-surface-container-lowest text-on-surface rounded-full shadow-md w-full text-left"></button>
+  </section>
+
+  <!-- Navigation Footer -->
+  <footer class="w-full flex justify-between items-center mt-auto py-8">
+    <a href="index.html">
+      <button class="flex items-center gap-2 text-on-surface-variant font-headline font-bold hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">arrow_back</span>
+        HOME
+      </button>
+    </a>
+    <button id="submit-btn"
+      class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-12 py-5 rounded-full font-headline font-black text-xl shadow-lg shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
+      SUBMIT ANSWER
     </button>
-</a>
-<button onclick="document.getElementById('formPopup').style.display='flex'"
-    class="px-10 py-5 bg-surface-container-highest text-primary rounded-xl font-headline font-bold text-xl hover:scale-[1.03] active:scale-95 transition-all flex items-center justify-center">
-    Daily Challenge
-</button></button>
-    
-</a>
-</div>
-<!-- Stats/Social Proof -->
-<div class="mt-12 flex items-center gap-6">
-<div class="flex -space-x-4">
-<img alt="Explorer A" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcL8kkm3IhPNcFCPnNqGRe2cU__iQyNek2E_1KjDOGuFMWHp2oYBGKxmDkijKfOwdJu3sQeBUflamUzkJl3LlolYUkUkoc_HEja_4La0OrIEbIqRLeVNKqghoGYtcdnwc1IEAjS_uhg2q4AY67ZmTmCmnsSsUWTolPkSFbXKBpTs5_s4AbvmuW2hgPLaoAG_iHoXHVGxkUYwIrcCWfPkNg0AkT_jUTBKyrw6jF_k_4iiYLk8iBZYY-YYLA1Hu3mu2ahP5oeuvb3jg"/>
-<img alt="Explorer B" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKjzbn_Zd4PaSQmsPRhHty499FBjuVMEjFkMoIvFzR61i9U0yQizDqM5YISU7PS8QbYUMM76lyFDFtUvyFoh6iZGXJXKmHqaPUC_hJs6W4kuQ4YjMzTfsvsXbgFx6oPJkamDxoEcR86yhHdCG-UkERYyY5-OnbbUw3160Q1Xgu0LlJef6b2MfyeWp-zHmzKgcqTLCJbDyl0HiZyNva7d9m_8GAflkZZ5-8Ua0i0dWlxaR7x1mufe2WJ_GJQO4P8DHzbgQgl8QUBnU"/>
-<img alt="Explorer C" class="w-12 h-12 rounded-full border-4 border-white" data-alt="cartoon avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNf5WEO7dunU5aibUErrSWJ23aWJ-44qoDIk7f-vgCuKD2NWtWhvXRCvGVOlhhrXycjKfD1WxZkcjeajOqw50UxOtskWHY086snHXXAz5Yfz99M7ytCNTwm4AXmzOlI9wtZXG_To258_nPyHcFaLbEPmjcproB4XpbF8UMrBqw1kKU1Tm9wAOPzW6QAiLLIQ2ECv9OVnP5M2h81ERS8LVeTu0PAPWMFZdsl9hfgOpMvk7ZcARcazn9bpJb4BaKjRqC2pGm-KB0S0A"/>
-</div>
-<div class="text-sm font-bold text-on-surface-variant">
-<span class="text-primary">+4.2k</span> explorers active now
-                    </div>
-</div>
-</div>
-<!-- Right Side: Visual Map Hero -->
-<div class="lg:col-span-7 relative">
-<!-- Decorative background blob -->
-<div class="absolute inset-0 bg-primary-container/20 rounded-full blur-[100px] -z-10 transform scale-110"></div>
-<!-- Main Map Illustration -->
-<div class="relative bg-white/40 p-4 rounded-xl border-4 border-white shadow-2xl overflow-hidden glass-panel">
-<img alt="Colorful Illustrated World Map" class="w-full h-auto rounded-lg object-cover aspect-[4/3]" data-alt="vibrant digital illustration of a stylized world map with icons of animals, monuments like Eiffel Tower and Taj Mahal, and colorful geography for kids" data-location="World" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHjbEck_Qe0dOdsV2sA7ht1EVxMRyHoZBpxw9_H5IVGNGvIzR6c6mcoBAwLh5v8IE6PwTFGe0N0OHVurhQrctTK-tNvKybFdI6v5i7wiXUAZ4QBL-YnQ2moA5u98ez47_tVcO6E_I6M6R_V4g5X40UgRALHbvCBPflMftPsiiQpaEVPTaBtpQcDujL9Cy_w2AAWtXx6adkatMcZsS0ahCuM4RerIb4HPYAbnQSiAXxpThRFOHjYu-kQR5KosW8TJzHv17jFpETcV0"/>
-<!-- Floating UI elements over map -->
-<div class="absolute top-8 left-8 bg-white p-4 rounded-lg shadow-xl flex items-center gap-3 animate-bounce-slow">
-<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">public</span>
-</div>
-<div>
-<div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">Destination</div>
-<div class="text-sm font-black text-on-surface">Great Barrier Reef</div>
-</div>
-</div>
-<div class="absolute bottom-8 right-8 bg-white p-4 rounded-lg shadow-xl flex items-center gap-3">
-<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
-</div>
-<div>
-<div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">New Badge</div>
-<div class="text-sm font-black text-on-surface">Ocean Master</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Bento Grid Feature Sections -->
-<section class="mt-32">
-<h2 class="text-3xl font-headline font-extrabold text-on-surface mb-12">Level up your geography skills</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-<!-- Card 1 -->
-<div class="p-8 rounded-xl bg-surface-container-low hover:scale-[1.02] transition-transform flex flex-col gap-6">
-<div class="w-14 h-14 rounded-2xl bg-primary flex items-center justify-center text-white shadow-lg shadow-primary/20">
-<span class="material-symbols-outlined text-3xl">map</span>
-</div>
-<div>
-<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Interactive Maps</h3>
-<p class="text-on-surface-variant font-medium leading-relaxed">Zoom into specific regions and discover hidden secrets about every continent.</p>
-</div>
-</div>
-<!-- Card 2 -->
-<div class="p-8 rounded-xl bg-surface-container hover:scale-[1.02] transition-transform flex flex-col gap-6">
-<div class="w-14 h-14 rounded-2xl bg-secondary flex items-center justify-center text-white shadow-lg shadow-secondary/20">
-<span class="material-symbols-outlined text-3xl">quiz</span>
-</div>
-<div>
-<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Fun Fact Challenges</h3>
-<p class="text-on-surface-variant font-medium leading-relaxed">Learn about animals, local foods, and traditions through interactive quizzes.</p>
-</div>
-</div>
-<!-- Card 3 -->
-<div class="p-8 rounded-xl bg-tertiary-container/20 hover:scale-[1.02] transition-transform flex flex-col gap-6 border-2 border-tertiary-container/30">
-<div class="w-14 h-14 rounded-2xl bg-tertiary flex items-center justify-center text-white shadow-lg shadow-tertiary/20">
-<span class="material-symbols-outlined text-3xl">workspace_premium</span>
-</div>
-<div>
-<h3 class="text-2xl font-headline font-extrabold text-on-surface mb-3">Badge System</h3>
-<p class="text-on-surface-variant font-medium leading-relaxed">Collect limited edition badges as you master different parts of the globe.</p>
-</div>
-</div>
-</div>
-</section>
+  </footer>
+
 </main>
-<!-- Footer -->
-<footer class="w-full py-12 px-8 bg-slate-50 dark:bg-slate-950">
-<div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
-<div class="flex flex-col items-center md:items-start gap-2">
-<div class="text-blue-600 font-black text-xl uppercase italic font-headline">
-                    GeoExplorer
-                </div>
-<p class="font-['Be_Vietnam_Pro'] text-sm text-slate-500">© 2024 Digital Explorer Field Kit</p>
+
+<!-- Mobile Bottom Nav -->
+<div class="md:hidden fixed bottom-0 w-full z-50 rounded-t-[3rem] px-4 pb-6 bg-white/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(35,44,81,0.04)]">
+  <div class="flex justify-around items-center py-4">
+    <a href="index.html" class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 rounded-full transition-colors">
+      <span class="material-symbols-outlined">map</span>
+      <span class="text-[12px] font-bold">Adventure</span>
+    </a>
+    <a class="flex flex-col items-center justify-center bg-blue-600 text-white rounded-[2rem] px-6 py-2 shadow-lg" href="#">
+      <span class="material-symbols-outlined">quiz</span>
+      <span class="text-[12px] font-bold">Quizzes</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 rounded-full" href="#">
+      <span class="material-symbols-outlined">workspace_premium</span>
+      <span class="text-[12px] font-bold">Badges</span>
+    </a>
+    <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 rounded-full" href="#">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[12px] font-bold">Profile</span>
+    </a>
+  </div>
 </div>
-<div class="flex gap-8">
-<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Privacy Policy</a>
-<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Parents' Portal</a>
-<a class="font-['Be_Vietnam_Pro'] text-sm text-slate-400 hover:text-blue-500 transition-colors" href="#">Safety First</a>
-</div>
-<div class="flex gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-<span class="material-symbols-outlined">share</span>
-</div>
-<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-<span class="material-symbols-outlined">help</span>
-</div>
-</div>
-</div>
+
+<!-- Desktop Footer -->
+<footer class="hidden md:block w-full py-12 px-8 bg-slate-50 mt-12">
+  <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-7xl mx-auto">
+    <div class="flex items-center gap-2">
+      <span class="text-blue-600 font-black text-xl italic font-headline uppercase">GeoExplorer</span>
+      <span class="text-sm text-slate-500">© 2024 Digital Explorer Field Kit</span>
+    </div>
+    <div class="flex gap-8">
+      <a class="text-sm text-slate-400 hover:text-blue-500" href="#">Privacy Policy</a>
+      <a class="text-sm text-slate-400 hover:text-blue-500" href="#">Parents' Portal</a>
+      <a class="text-sm text-slate-400 hover:text-blue-500" href="#">Safety First</a>
+    </div>
+  </div>
 </footer>
-<!-- BottomNavBar (Mobile Only) -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 rounded-t-[3rem] px-4 pb-4 pt-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl shadow-[0_-8px_30px_rgba(35,44,81,0.04)] flex justify-around items-center">
-<a class="flex flex-col items-center justify-center bg-blue-600 text-white rounded-[2rem] px-6 py-2 shadow-lg shadow-blue-500/30 active:scale-90 duration-150" href="#">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
-<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Adventure</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
-<span class="material-symbols-outlined">quiz</span>
-<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Quizzes</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
-<span class="material-symbols-outlined">workspace_premium</span>
-<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Badges</span>
-</a>
-<a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-4 py-2 hover:bg-blue-50 dark:hover:bg-slate-800 rounded-full transition-colors active:scale-90 duration-150" href="#">
-<span class="material-symbols-outlined">person</span>
-<span class="font-['Be_Vietnam_Pro'] text-[12px] font-bold">Profile</span>
-</a>
-</nav>
-<!-- FAB (Suppressed on Landing but here for structure if needed later) -->
-<!-- Suppressed: Primary action is center screen Start Button -->
-      <!-- GeoExplorer AI Chatbot -->
 
-<!-- Chat Button -->
-<button onclick="document.getElementById('chatBox').style.display='flex'"
-    style="position:fixed; bottom:30px; right:30px;
-           background:#4361ee; color:white;
-           border:none; border-radius:50px;
-           padding:16px 24px; font-size:15px;
-           font-weight:700; cursor:pointer;
-           box-shadow:0 8px 25px rgba(67,97,238,0.4);
-           z-index:9998; display:flex;
-           align-items:center; gap:8px;">
-    🌍 Ask GeoBot
-</button>
-
-<!-- Chat Box -->
-<div id="chatBox"
-    style="display:none; position:fixed;
-           bottom:30px; right:30px;
-           width:350px; height:500px;
-           background:white; border-radius:20px;
-           box-shadow:0 20px 60px rgba(0,0,0,0.2);
-           z-index:9999; flex-direction:column;
-           overflow:hidden;">
-
-    <!-- Header -->
-    <div style="background:#4361ee; padding:16px 20px;
-                display:flex; justify-content:space-between;
-                align-items:center;">
-        <div style="display:flex; align-items:center; gap:10px;">
-            <span style="font-size:24px;">🌍</span>
-            <div>
-                <div style="color:white; font-weight:700; 
-                            font-size:15px;">GeoBot</div>
-                <div style="color:rgba(255,255,255,0.7); 
-                            font-size:11px;">Your Geography Assistant</div>
-            </div>
-        </div>
-        <button onclick="document.getElementById('chatBox').style.display='none'"
-            style="background:none; border:none;
-                   color:white; font-size:22px;
-                   cursor:pointer;">✕</button>
-    </div>
-
-    <!-- Messages Area -->
-    <div id="chatMessages"
-        style="flex:1; overflow-y:auto;
-               padding:16px; display:flex;
-               flex-direction:column; gap:12px;
-               background:#f8f9ff;">
-
-        <!-- Welcome Message -->
-        <div style="background:white; padding:12px 16px;
-                    border-radius:12px; font-size:13px;
-                    color:#333; max-width:85%;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-            👋 Hi Explorer! I'm GeoBot! Ask me anything about countries, capitals, flags or geography! 🗺️
-        </div>
-    </div>
-
-    <!-- Input Area -->
-    <div style="padding:12px; background:white;
-                border-top:1px solid #eee;
-                display:flex; gap:8px;">
-        <input id="chatInput"
-               type="text"
-               placeholder="Ask about any country..."
-               onkeypress="if(event.key==='Enter') sendMessage()"
-               style="flex:1; padding:10px 14px;
-                      border:1.5px solid #e0e0e0;
-                      border-radius:10px; font-size:13px;
-                      outline:none;"
-               onfocus="this.style.border='1.5px solid #4361ee'"
-               onblur="this.style.border='1.5px solid #e0e0e0'">
-        <button onclick="sendMessage()"
-            style="background:#4361ee; color:white;
-                   border:none; border-radius:10px;
-                   padding:10px 16px; font-size:18px;
-                   cursor:pointer;">➤</button>
-    </div>
-</div>
-
-<!-- Chatbot Script -->
-<script>
-async function sendMessage() {
-    const input = document.getElementById('chatInput');
-    const messages = document.getElementById('chatMessages');
-    const userText = input.value.trim();
-    
-    if (!userText) return;
-
-    // Show user message
-    messages.innerHTML += `
-        <div style="background:#4361ee; color:white;
-                    padding:12px 16px; border-radius:12px;
-                    font-size:13px; max-width:85%;
-                    align-self:flex-end; margin-left:auto;
-                    box-shadow:0 2px 8px rgba(67,97,238,0.3);">
-            ${userText}
-        </div>`;
-    
-    input.value = '';
-    messages.scrollTop = messages.scrollHeight;
-
-    // Show typing indicator
-    messages.innerHTML += `
-        <div id="typing"
-             style="background:white; padding:12px 16px;
-                    border-radius:12px; font-size:13px;
-                    color:#999; max-width:85%;
-                    box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-            GeoBot is thinking... 🌍
-        </div>`;
-    messages.scrollTop = messages.scrollHeight;
-
-    try {
-        const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer 
-            },
-            body: JSON.stringify({
-                model: 'llama3-8b-8192',
-                messages: [
-                    {
-                        role: 'system',
-                        content: `You are GeoBot, a fun and friendly geography 
-                        assistant for kids aged 12-14 on the GeoExplorer Quiz 
-                        website. You answer questions about countries, capitals, 
-                        flags, cultures, continents and world geography. 
-                        Keep answers short, fun and educational. 
-                        Use emojis to make it engaging!`
-                    },
-                    {
-                        role: 'user',
-                        content: userText
-                    }
-                ],
-                max_tokens: 200
-            })
-        });
-
-        const data = await response.json();
-        const botReply = data.choices[0].message.content;
-
-        // Remove typing indicator
-        document.getElementById('typing').remove();
-
-        // Show bot reply
-        messages.innerHTML += `
-            <div style="background:white; padding:12px 16px;
-                        border-radius:12px; font-size:13px;
-                        color:#333; max-width:85%;
-                        box-shadow:0 2px 8px rgba(0,0,0,0.06);">
-                ${botReply}
-            </div>`;
-        messages.scrollTop = messages.scrollHeight;
-
-    } catch (error) {
-        document.getElementById('typing').remove();
-        messages.innerHTML += `
-            <div style="background:white; padding:12px 16px;
-                        border-radius:12px; font-size:13px;
-                        color:#e74c3c; max-width:85%;">
-                Oops! GeoBot is unavailable. Try again! 🔄
-            </div>`;
-    }
-}
-</script>
-      <!-- Google Form Popup -->
-<div id="formPopup"
-    style="display:none; position:fixed;
-           top:0; left:0; width:100%; height:100%;
-           background:rgba(0,0,0,0.7);
-           z-index:9999;
-           justify-content:center;
-           align-items:center;">
-
-    <div style="background:white;
-                border-radius:20px;
-                padding:20px;
-                width:90%;
-                max-width:660px;
-                max-height:90vh;
-                overflow-y:auto;
-                position:relative;">
-
-        <!-- Close Button -->
-        <button onclick="document.getElementById('formPopup').style.display='none'"
-            style="position:absolute;
-                   top:10px; right:15px;
-                   background:none;
-                   border:none;
-                   font-size:24px;
-                   cursor:pointer;
-                   color:#666;">✕</button>
-
-        <h2 style="text-align:center;
-                   color:#4361ee;
-                   margin-bottom:16px;
-                   font-size:22px;
-                   font-weight:700;">
-            🌍 Daily Challenge Signup
-        </h2>
-
-        <!-- Google Form Embed -->
-        <iframe 
-            src="https://docs.google.com/forms/d/e/1FAIpQLSdcbuMHEfksIfoz7nGGQhpL6f_6vjb7mUPsqVOyFfwnvEOR8w/viewform?embedded=true" 
-            width="100%" 
-            height="600" 
-            frameborder="0" 
-            marginheight="0" 
-            marginwidth="0">
-            Loading…
-        </iframe>
-
-    </div>
-</div>
 </body></html>
